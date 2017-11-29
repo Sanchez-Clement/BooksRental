@@ -22,7 +22,7 @@ class DefaultController extends Controller
 
     /**
      * @Route(
-     *     path = "/book/{id}",
+     *     path = "home/book/{id}",
      *     name="library_viewBook" ,
      *     requirements={"id": "\d+"})
      */
@@ -33,4 +33,19 @@ class DefaultController extends Controller
         return $this->render('LibraryManagerBundle:Default:viewBook.html.twig',compact('book'));
 
     }
+
+      /**
+     * @Route(
+     *     path = "home/{category}",
+     *     name="library_viewCategory")
+     */
+    public function viewCategory($category)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $books = $em -> getRepository(Book::class)->findByCategory($category);
+        return $this->render('LibraryManagerBundle:Default:viewCategory.html.twig',compact('books'));
+
+    }
+
+    
 }
