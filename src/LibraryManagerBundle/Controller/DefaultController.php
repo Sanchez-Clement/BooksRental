@@ -5,6 +5,7 @@ namespace LibraryManagerBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use LibraryManagerBundle\Entity\Book;
+use LibraryManagerBundle\Entity\Member;
 
 class DefaultController extends Controller
 {
@@ -46,6 +47,19 @@ class DefaultController extends Controller
         return $this->render('LibraryManagerBundle:Default:viewCategory.html.twig',compact('books'));
 
     }
+
+    /**
+     * @Route(
+     *     path = "/members",
+     *     name = "library_members")
+     */
+    public function viewMembersAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $members = $em -> getRepository(Member::class)->findAll();
+        return $this->render('LibraryManagerBundle:Default:viewMembers.html.twig',compact('members'));
+    }
+
 
     
 }

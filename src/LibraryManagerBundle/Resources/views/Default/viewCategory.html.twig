@@ -1,0 +1,4 @@
+{% for book in books%}
+<a href="{{ path('library_viewBook', {'id': book.id})}}"><h2>{{book.title}}</h2></a>
+<p>{{book.resume}}</p>
+{% endfor %}
