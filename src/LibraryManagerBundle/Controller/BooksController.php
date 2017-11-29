@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use LibraryManagerBundle\Entity\Book;
 use LibraryManagerBundle\Entity\Member;
+use LibraryManagerBundle\Form\BookType;
+use LibraryManagerBundle\Form\MemberType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BooksController extends Controller
 {
@@ -16,6 +20,7 @@ class BooksController extends Controller
      */
     public function indexAction()
     {
+        
         $em = $this->getDoctrine()->getManager();
         $books = $em -> getRepository(Book::class)->findAll();
         return $this->render('LibraryManagerBundle:Books:index.html.twig',compact('books'));
@@ -54,11 +59,45 @@ class BooksController extends Controller
      *     name="library_rental" ,
      *     requirements={"id": "\d+"})
      */
-    public function rentalBook($id)
+    public function rentalBook($id,Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $book = $em -> getRepository(Book::class)->find($id);
-        return $this->render('LibraryManagerBundle:Books:rentalBook.html.twig',compact('book'));
+        
+        $em = $this->getDoctrine()->getManager()-> getRepository(Book::class);
+        $book = $em->find($id);
+        $member = new Member();
+       
+        $form = $this->createForm(MemberType::class, $member);
+        
+
+       
+      
+        $form->handleRequest($request);
+        if ($request->isMethod('POST')) {
+
+            // dump($_POST);
+           $em = $this->getDoctrine()->getManager();
+           $member = $em-> getRepository(Member::class)->findOneByNumberMember($_POST['librarymanagerbundle_member']['numberMember']);
+           $book->setMember($member);
+
+
+            
+           $this->getDoctrine()->getManager()->flush();
+            // Inutile de persister ici, Doctrine connait déjà notre annonce
+            // $em2 ->persist($book);
+          
+      
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
+      
+            // return $this->redirectToRoute('library_index');
+          } 
+
+            $form = $form->createView();
+            
+            
+               return $this->render('LibraryManagerBundle:Books:rentalBook.html.twig',compact('book','form'));
+          
+          
+        
 
     }
 

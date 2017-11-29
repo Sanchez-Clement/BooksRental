@@ -64,7 +64,7 @@ class Book
     private $availability;
 
       /**
-   * @ORM\ManyToOne(targetEntity="LibraryManagerBundle\Entity\Member", inversedBy="books")
+   * @ORM\ManyToOne(targetEntity="LibraryManagerBundle\Entity\Member", inversedBy="books", cascade={"persist"})
    * @ORM\JoinColumn(nullable=true)
    */
   private $member;

@@ -24,10 +24,9 @@ class BookType extends AbstractType
             ->add('title',    TextType::class)
             ->add('author',    TextType::class)
             ->add('resume',    TextareaType::class)
-            ->add('releaseDate',    IntergerType::class)
-            ->add('avalaibility',   CheckboxType::class)
-            ->add('member',    MemberType::class)
-            ->add('Ajouter',      SubmitType::class);
+            ->add('releaseDate',    IntegerType::class)
+            ->add('availability',   CheckboxType::class)
+            ->add('valider',      SubmitType::class);
     }
     
     /**
