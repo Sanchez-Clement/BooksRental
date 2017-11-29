@@ -4,6 +4,7 @@ namespace LibraryManagerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use LibraryManagerBundle\Entity\Book;
 
 class DefaultController extends Controller
 {
@@ -12,6 +13,8 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('LibraryManagerBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $books = $em -> getRepository(Book::class)->findAll();
+        return $this->render('LibraryManagerBundle:Default:index.html.twig',compact('books'));
     }
 }
