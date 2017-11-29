@@ -48,6 +48,20 @@ class BooksController extends Controller
 
     }
 
+    /**
+     * @Route(
+     *     path = "home/book/{id}/rental",
+     *     name="library_rental" ,
+     *     requirements={"id": "\d+"})
+     */
+    public function rentalBook($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $book = $em -> getRepository(Book::class)->find($id);
+        return $this->render('LibraryManagerBundle:Books:rentalBook.html.twig',compact('book'));
+
+    }
+
     
     
 }
