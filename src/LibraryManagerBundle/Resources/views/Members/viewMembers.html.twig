@@ -1,0 +1,3 @@
+{% for member in members %}
+    <a href="{{ path('library_thisMember', {'id': member.id})}}">{{member.name}}</a>
+{% endfor %}
