@@ -78,6 +78,7 @@ class BooksController extends Controller
            $em = $this->getDoctrine()->getManager();
            $member = $em-> getRepository(Member::class)->findOneByNumberMember($_POST['librarymanagerbundle_member']['numberMember']);
            $book->setMember($member);
+           $book->setAvailability(0);
 
 
             
@@ -88,7 +89,9 @@ class BooksController extends Controller
       
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
       
-            // return $this->redirectToRoute('library_index');
+            return $this->redirectToRoute('library_thisMember',array(
+                'id' => $member->getId()
+            ));
           } 
 
             $form = $form->createView();
@@ -101,6 +104,25 @@ class BooksController extends Controller
 
     }
 
+     /**
+     * @Route(
+     *     path = "home/book/{id}/back",
+     *     name="library_back" ,
+     *     requirements={"id": "\d+"})
+     */
+    public function backBook($id)
+    {
+        $em = $this->getDoctrine()->getManager()-> getRepository(Book::class);
+        $book = $em->find($id);
+        $book->setMember();
+        $book->setAvailability(1);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('library_viewBook',array(
+            'id' => $book->getId()
+        ));
+
+    }
     
     
 }

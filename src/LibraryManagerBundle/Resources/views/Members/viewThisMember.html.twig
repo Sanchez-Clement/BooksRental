@@ -1,1 +1,5 @@
-{{ dump(member) }}
+{{ dump(member.books) }}
+{% for book in member.books %}
+    {{book.title}}
+{% endfor %}
+
