@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 class BookType extends AbstractType
@@ -20,12 +21,17 @@ class BookType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('category',    TextType::class)
+            ->add('category',    ChoiceType::class, array(
+                'choices'  => array(
+                    'Roman' => "Roman",
+                    'BD' => 'BD',
+                    'Humour' => 'Humour',
+                ),))
             ->add('title',    TextType::class)
             ->add('author',    TextType::class)
             ->add('resume',    TextareaType::class)
             ->add('releaseDate',    IntegerType::class)
-            ->add('availability',   CheckboxType::class)
+            // ->add('availability',   CheckboxType::class)
             ->add('valider',      SubmitType::class);
     }
     

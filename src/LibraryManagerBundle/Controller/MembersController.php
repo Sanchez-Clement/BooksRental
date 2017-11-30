@@ -20,10 +20,10 @@ class MembersController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $members = $em -> getRepository(Member::class)->findAll();
-        return $this->render('LibraryManagerBundle:Members:viewMembers.html.twig',compact('members'));
+        return $this->render('LibraryManagerBundle:Members:viewMembers.html.twig', compact('members'));
     }
 
-       /**
+    /**
      * @Route(
      *     path = "/members/{id}",
      *     name = "library_thisMember",
@@ -33,9 +33,6 @@ class MembersController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $member = $em -> getRepository(Member::class)->find($id);
-        return $this->render('LibraryManagerBundle:Members:viewThisMember.html.twig',compact('member'));
+        return $this->render('LibraryManagerBundle:Members:viewThisMember.html.twig', compact('member'));
     }
-
-
-    
 }
