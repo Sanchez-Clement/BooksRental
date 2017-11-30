@@ -1,0 +1,9 @@
+#body{
+    min-height: 100vh;
+    background-image: url('../img/1375.jpg');
+    background-size: cover;
+}
+
+#table_id {
+    background-color: white;
+}
