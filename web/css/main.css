@@ -12,6 +12,10 @@
     color : black;
 }
 
+#body main li {
+   list-style: none;
+}
+
 #table_id {
     background-color: white;
 }

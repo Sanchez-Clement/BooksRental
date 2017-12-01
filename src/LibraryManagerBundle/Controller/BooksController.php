@@ -37,9 +37,9 @@ class BooksController extends Controller
         $book = new Book();
       
         $form = $this->createForm(BookType::class, $book);
-        $form->handleRequest($request);
+        // $form->handleRequest($request);
 
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             
                         // dump($_POST);
                         $em = $this->getDoctrine()->getManager();
@@ -102,28 +102,32 @@ class BooksController extends Controller
         
 
        
-      
-        $form->handleRequest($request);
-        if ($request->isMethod('POST')) {
+    
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isvalid()) {
 
             // dump($_POST);
             $em = $this->getDoctrine()->getManager();
             $member = $em-> getRepository(Member::class)->findOneByNumberMember($_POST['librarymanagerbundle_member']['numberMember']);
-            $book->setMember($member);
-            $book->setAvailability(0);
+
+            if (isset($member)) {
+                $book->setMember($member);
+                $book->setAvailability(0);
 
 
             
-            $this->getDoctrine()->getManager()->flush();
-            // Inutile de persister ici, Doctrine connait déjà notre annonce
-            // $em2 ->persist($book);
+                $this->getDoctrine()->getManager()->flush();
+                // Inutile de persister ici, Doctrine connait déjà notre annonce
+                // $em2 ->persist($book);
           
+                $request->getSession()->getFlashBag()->add('notice', 'Votre livre a bien été emprunté.');
       
-            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
-      
-            return $this->redirectToRoute('library_thisMember', array(
+                return $this->redirectToRoute('library_thisMember', array(
                 'id' => $member->getId()
             ));
+            } else {
+                
+                $request->getSession()->getFlashBag()->add('danger', 'Numéro de membre inconnu');
+            }
         }
 
         $form = $form->createView();
@@ -139,13 +143,14 @@ class BooksController extends Controller
     *     name="library_back" ,
     *     requirements={"id": "\d+"})
     */
-    public function backBookAction($id)
+    public function backBookAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager()-> getRepository(Book::class);
         $book = $em->find($id);
         $book->setMember();
         $book->setAvailability(1);
         $this->getDoctrine()->getManager()->flush();
+        $request->getSession()->getFlashBag()->add('notice', 'Votre livre a bien été rendu.');
 
         return $this->redirectToRoute('library_viewBook', array(
             'id' => $book->getId()

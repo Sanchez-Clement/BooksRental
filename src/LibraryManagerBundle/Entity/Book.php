@@ -3,6 +3,7 @@
 namespace LibraryManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Book
@@ -25,6 +26,7 @@ class Book
      * @var string
      *
      * @ORM\Column(name="category", type="string", length=50)
+     * @Assert\NotBlank()
      */
     private $category;
 
@@ -32,6 +34,13 @@ class Book
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=100)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 100,
+     *      minMessage = "Votre titre doit avoir au moins {{ limit }} caractères",
+     *      maxMessage = "Votre titre doit avoir au maximum {{ limit }} caractères"
+     * )
      */
     private $title;
 
@@ -39,6 +48,13 @@ class Book
      * @var string
      *
      * @ORM\Column(name="author", type="string", length=50)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Votre auteur doit avoir au moins {{ limit }} caractères",
+     *      maxMessage = "Votre auteur doit avoir au maximum {{ limit }} caractères"
+     * )
      */
     private $author;
 
@@ -46,6 +62,7 @@ class Book
      * @var string
      *
      * @ORM\Column(name="resume", type="text")
+     * @Assert\NotBlank()
      */
     private $resume;
 
@@ -53,6 +70,7 @@ class Book
      * @var int
      *
      * @ORM\Column(name="releaseDate", type="integer")
+     * @Assert\NotBlank()
      */
     private $releaseDate;
 

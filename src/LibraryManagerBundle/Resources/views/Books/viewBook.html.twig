@@ -2,6 +2,12 @@
 
 
 {% block books_body %}
+
+{% for message in app.flashes('notice') %}
+<div class="alert alert-success mt-4" role="alert">
+    {{ message }}
+</div>
+{% endfor %}
 <div class="row justify-content-center">
    
     <ul class="list-group col-11 col-md-8 text-center mt-5" >
