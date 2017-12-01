@@ -20,7 +20,7 @@
 
 <table id="table_id" class="display table table-hover table-responsive-sm">
   <thead class="text-center">
-    <th>Titre</th>
+    <th class="booktitle">Titre</th>
     <th>Auteur</th>
     <th>Date de parution</th>
     <th>Disponibilité</th>
@@ -31,7 +31,8 @@
     
     <tr>
         
-      <td><a href="{{ path('library_viewBook', {'id': book.id})}}">{{book.title}}</a></td>
+      <td><a href="{{ path('library_viewBook', {'id': book.id})}}">{{book.title}} <i class="fa fa-hand-o-left ml-3" aria-hidden="true"></i>
+      </a></td>
       <td>{{book.author}}</td>
       <td>{{book.releaseDate}}</td>
       <td> 

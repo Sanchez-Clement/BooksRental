@@ -1,5 +1,37 @@
-{{ dump(member.books) }}
-{% for book in member.books %}
-    {{book.title}}
-{% endfor %}
+{% extends "LibraryManagerBundle:Members:layout.html.twig" %} 
 
+{% block members_body %}
+
+<div class="row justify-content-center">
+        
+         <ul class="list-group col-11 col-md-8 text-center mt-5" >
+             <li class="list-group-item">{{member.name}}</li>
+             <li class="list-group-item">{{member.numberMember}}</li>
+             <li class="list-group-item">{{member.mail}}</li>
+            <li class="list-group-item" role="tab" id="headingThree"> 
+                {% if member.books|length == 0 %}
+                    Pas de Locations en cours
+                {% else %}
+                <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Nombre de locations en cours : {{member.books|length}}
+                      </a>
+                      <div id="collapseThree" class="collapse mt-4" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+                          <ul>
+                           {% for book in member.books %} 
+                           <li>{{book.title}} <i class="fa fa-hand-o-left ml-3" aria-hidden="true"></i><a class="btn btn-success ml-4" href="{{ path('library_back', {'id': book.id})}}">Rendre livre</a></li>
+                           {% endfor %}
+                       </ul>
+                      </div>
+                    
+                {% endif %}
+                
+             </li>
+           </ul>
+     
+     
+     </div>
+
+
+
+
+{% endblock %}

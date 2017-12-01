@@ -4,6 +4,18 @@
     background-size: cover;
 }
 
+#body main a:hover {
+    text-decoration: none;
+}
+
+#body main a {
+    color : black;
+}
+
 #table_id {
     background-color: white;
+}
+
+.booktitle {
+    min-width : 200Px;
 }
