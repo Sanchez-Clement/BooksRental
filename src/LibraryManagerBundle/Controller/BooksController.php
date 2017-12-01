@@ -15,6 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class BooksController extends Controller
 {
     /**
+     * List all the books in bdd
      * @Route(
      *     path = "/",
      *     name = "library_index")
@@ -26,7 +27,8 @@ class BooksController extends Controller
         return $this->render('LibraryManagerBundle:Books:index.html.twig', compact('books'));
     }
 
-      /**
+    /**
+     * add a book in bdd
      * @Route(
      *     path = "home/addbook",
      *     name="library_addBook")
@@ -36,20 +38,24 @@ class BooksController extends Controller
       
         $book = new Book();
       
+        // Create form BOOK
         $form = $this->createForm(BookType::class, $book);
-        // $form->handleRequest($request);
+       
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             
-                        // dump($_POST);
+                        
                         $em = $this->getDoctrine()->getManager();
+
+                        // Make the book available
                         $book -> setAvailability(1);
                         $em -> persist($book);
+
+                        // add the book in the bdd
                         $this->getDoctrine()->getManager()->flush();
-                        // Inutile de persister ici, Doctrine connait déjà notre annonce
-                        // $em2 ->persist($book);
+
                       
-                  
+                //   message flash
                         $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
                   
                         return $this->redirectToRoute('library_viewBook', array(
@@ -62,6 +68,7 @@ class BooksController extends Controller
     }
 
     /**
+     * view the detail of the sellectionned book
      * @Route(
      *     path = "home/book/{id}",
      *     name="library_viewBook" ,
@@ -75,6 +82,7 @@ class BooksController extends Controller
     }
 
     /**
+     * 
      * @Route(
      *     path = "home/{category}",
      *     name="library_viewCategory")
@@ -87,6 +95,7 @@ class BooksController extends Controller
     }
 
     /**
+     * to rent a book
      * @Route(
      *     path = "home/book/{id}/rental",
      *     name="library_rental" ,
@@ -97,7 +106,9 @@ class BooksController extends Controller
         $em = $this->getDoctrine()->getManager()-> getRepository(Book::class);
         $book = $em->find($id);
         $member = new Member();
-       
+
+
+    //    create a form to member
         $form = $this->createForm(MemberType::class, $member);
         
 
@@ -105,27 +116,30 @@ class BooksController extends Controller
     
         if ($request->isMethod('POST') && $form->handleRequest($request)->isvalid()) {
 
-            // dump($_POST);
+            
             $em = $this->getDoctrine()->getManager();
+
+            // search if the number member is in bdd
             $member = $em-> getRepository(Member::class)->findOneByNumberMember($_POST['librarymanagerbundle_member']['numberMember']);
 
             if (isset($member)) {
+
+                // add the member to the entity book
                 $book->setMember($member);
+
+                // make no available the book
                 $book->setAvailability(0);
 
-
-            
                 $this->getDoctrine()->getManager()->flush();
-                // Inutile de persister ici, Doctrine connait déjà notre annonce
-                // $em2 ->persist($book);
-          
+               
+        //   message flash
                 $request->getSession()->getFlashBag()->add('notice', 'Votre livre a bien été emprunté.');
       
                 return $this->redirectToRoute('library_thisMember', array(
                 'id' => $member->getId()
             ));
             } else {
-                
+                // message flash if the number member is not in bdd
                 $request->getSession()->getFlashBag()->add('danger', 'Numéro de membre inconnu');
             }
         }
@@ -138,6 +152,7 @@ class BooksController extends Controller
     }
 
     /**
+    * to back the book
     * @Route(
     *     path = "home/book/{id}/back",
     *     name="library_back" ,
@@ -147,9 +162,15 @@ class BooksController extends Controller
     {
         $em = $this->getDoctrine()->getManager()-> getRepository(Book::class);
         $book = $em->find($id);
+
+        // reset the member of the book
         $book->setMember();
+
+        // make the book available
         $book->setAvailability(1);
         $this->getDoctrine()->getManager()->flush();
+
+        // message flash
         $request->getSession()->getFlashBag()->add('notice', 'Votre livre a bien été rendu.');
 
         return $this->redirectToRoute('library_viewBook', array(
