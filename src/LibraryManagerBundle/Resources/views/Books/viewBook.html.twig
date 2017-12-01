@@ -15,7 +15,8 @@
     {{book.resume}}
           </div>
         </li>
-        <li class="list-group-item">{% if book.availability == 0%}
+        <li class="list-group-item">
+            {% if book.availability == 1%}
             <a class="btn btn-success" href="{{ path('library_rental', {'id': book.id})}}">Emprunter</a>
             {% else %}
             <a class="btn btn-success" href="{{ path('library_back', {'id': book.id})}}">Rendre</a>
