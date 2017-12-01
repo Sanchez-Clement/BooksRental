@@ -83,7 +83,7 @@ class BooksController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $books = $em -> getRepository(Book::class)->findByCategory($category);
-        return $this->render('LibraryManagerBundle:Books:viewCategory.html.twig', compact('books'));
+        return $this->render('LibraryManagerBundle:Books:viewCategory.html.twig', compact('books','category'));
     }
 
     /**
