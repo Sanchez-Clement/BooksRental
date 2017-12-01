@@ -12,6 +12,7 @@ class MembersController extends Controller
     
 
     /**
+     * list all the member in bdd
      * @Route(
      *     path = "/members",
      *     name = "library_members")
@@ -24,6 +25,7 @@ class MembersController extends Controller
     }
 
     /**
+     * view the detail of the member selectionned
      * @Route(
      *     path = "/members/{id}",
      *     name = "library_thisMember",
