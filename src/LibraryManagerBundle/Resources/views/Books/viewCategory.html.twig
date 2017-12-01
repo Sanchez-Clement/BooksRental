@@ -1,10 +1,13 @@
 {% extends "LibraryManagerBundle:Books:layout.html.twig" %} 
-{% block stylesheets %}
+
+{% block stylesheets %} 
 {{ parent() }}
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"> 
 {% endblock %}
 
 {% block books_body %}
+
+
 <h2>Liste des livres : {{category}}</h2>
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle mb-4" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -27,31 +30,32 @@
 
   </thead>
   <tbody class="text-center ">
-    {% for book in books%}
     
+    {% for book in books%}
+
     <tr>
-        
-      <td><a href="{{ path('library_viewBook', {'id': book.id})}}">{{book.title}}</a></td>
+
+      <td>
+        <a href="{{ path('library_viewBook', {'id': book.id})}}">{{book.title}}</a>
+      </td>
       <td>{{book.author}}</td>
       <td>{{book.releaseDate}}</td>
-      <td> 
-          {% if book.availability == 0%}
-          <i class="fa fa-times fa-2x text-danger" aria-hidden="true"></i>
-          {% else %}
-          <i class="fa fa-check fa-2x text-success" aria-hidden="true"></i>
-          {% endif %}
+      <td>
+        {% if book.availability == 0%}
+        <i class="fa fa-times fa-2x text-danger" aria-hidden="true"></i>
+        {% else %}
+        <i class="fa fa-check fa-2x text-success" aria-hidden="true"></i>
+        {% endif %}
       </td>
-   
+
     </tr>
-  
-    
+
+
     {% endfor %}
   </tbody>
 </table>
-{% endblock %}
 
-{% block javascripts %}
-{{ parent() }}
+{% endblock %} {% block javascripts %} {{ parent() }}
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 {% endblock %}
