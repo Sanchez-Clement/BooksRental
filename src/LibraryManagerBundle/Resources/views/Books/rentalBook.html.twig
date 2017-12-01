@@ -1,9 +1,21 @@
-<body>
+{% extends "LibraryManagerBundle:Books:layout.html.twig" %} 
     
+{% block books_body %}
+    
+<h4 class="text-center mt-4 mb-4">Emprunter : {{ book.title}} </h4>
+<div class="card d-flex flex-colum justify-content-center">
+{{form_start(form)}}
+<div class="text-center p-4">
+{{ form_label(form.numberMember, "Numéro du membre: ")}}
 
+{{  form_widget(form.numberMember, { 'attr': {'class': 'col-8 m-auto'} })}}
+</div>
+{{ form_errors(form) }}
+<div class="col-12 d-flex justify-content-center">
+{{  form_widget(form.valider, { 'attr': {'class': 'btn btn-success mb-4'} })}}
+</div>
+{{form_end(form)}}
 
-{{ book.title}}
-
-{{form(form)}}
-</body>
+</div>
+{% endblock %}
 
