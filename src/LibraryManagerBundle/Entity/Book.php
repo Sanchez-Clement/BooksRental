@@ -71,6 +71,10 @@ class Book
      *
      * @ORM\Column(name="releaseDate", type="integer")
      * @Assert\NotBlank()
+     * @Assert\Regex(
+     *     pattern="/^\d{4}$/ ",
+     *     message="La date doit être de type ****"
+     * )
      */
     private $releaseDate;
 
@@ -78,10 +82,6 @@ class Book
      * @var bool
      *
      * @ORM\Column(name="availability", type="boolean")
-     * @Assert\Regex(
-     *     pattern="^\d{4}$",
-     *     message="La date doit être de type ****"
-     * )
      */
     private $availability;
 

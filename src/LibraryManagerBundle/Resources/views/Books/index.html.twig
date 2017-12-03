@@ -1,12 +1,14 @@
 {% extends "LibraryManagerBundle:Books:layout.html.twig" %}
-
-<!-- add style to datatables -->
-{% block stylesheets %} {{ parent() }}
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"> {% endblock %} {% block books_body %}
+{#add style to datatables#}
+{% block stylesheets %}
+ {{ parent() }}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"> 
+{% endblock %} 
+{% block books_body %}
 
 <h2 class="mt-4 mb-4">Liste des livres</h2>
 
-<!-- to choose the category -->
+{#to choose the category #}
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle mb-4" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
     aria-expanded="false">
@@ -31,7 +33,7 @@
     <th>Disponibilité</th>
 
   </thead>
-  
+
   <tbody class="text-center ">
     {% for book in books%}
 
@@ -60,7 +62,7 @@
 </table>
 {% endblock %}
 
-<!-- js for dataTable -->
+{# js for dataTable                #}
 {% block javascripts %} {{ parent() }}
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>

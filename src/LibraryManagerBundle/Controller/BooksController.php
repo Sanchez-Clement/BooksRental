@@ -56,7 +56,7 @@ class BooksController extends Controller
 
                       
                 //   message flash
-                        $request->getSession()->getFlashBag()->add('notice', 'Annonce bien modifiée.');
+                        $request->getSession()->getFlashBag()->add('notice', 'Votre livre a bien été ajouté.');
                   
                         return $this->redirectToRoute('library_viewBook', array(
                             'id' => $book->getId()
