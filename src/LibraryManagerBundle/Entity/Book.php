@@ -78,6 +78,10 @@ class Book
      * @var bool
      *
      * @ORM\Column(name="availability", type="boolean")
+     * @Assert\Regex(
+     *     pattern="^\d{4}$",
+     *     message="La date doit être de type ****"
+     * )
      */
     private $availability;
 
