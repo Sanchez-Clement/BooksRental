@@ -1,3 +1,5 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+library_manager:
+    resource: "@LibraryManagerBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

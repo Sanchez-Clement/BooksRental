@@ -1,0 +1,44 @@
+{% extends "LibraryManagerBundle:Books:layout.html.twig" %} {% block books_body %}
+
+<h4 class="text-center mt-4 mb-4">Ajouter un livre </h4>
+
+<!-- make style of the form to add a book -->
+<div class="card">
+
+    {{form_start(form)}}
+
+    <div class="p-4 row">
+        {{ form_label(form.category, "Catégorie : " , {'label_attr': {'class': 'col-12 col-sm-2'}})}} {{ form_widget(form.category,
+        { 'attr': {'class': 'col-12 col-sm-8 m-auto'} })}} {{ form_errors(form.category) }}
+    </div>
+
+    <div class="p-4 row">
+        {{ form_label(form.title, "Titre : " , {'label_attr': {'class': 'col-12 col-sm-2'}})}} {{ form_widget(form.title, { 'attr':
+        {'class': 'col-12 col-sm-8 m-auto'} })}} {{ form_errors(form.title) }}
+    </div>
+
+    <div class="p-4 row">
+        {{ form_label(form.author, "Auteur : " , {'label_attr': {'class': 'col-12 col-sm-2'}})}} {{ form_widget(form.author, { 'attr':
+        {'class': 'col-12 col-sm-8 m-auto'} })}} {{ form_errors(form.author) }}
+    </div>
+
+    <div class="p-4 row">
+        {{ form_label(form.resume, "Resumé : " , {'label_attr': {'class': 'col-12 col-sm-2'}})}} {{ form_widget(form.resume, { 'attr':
+        {'class': 'col-12 col-sm-8 m-auto'} })}} {{ form_errors(form.resume) }}
+    </div>
+
+    <div class="p-4 row">
+        {{ form_label(form.releaseDate, "Année de Publication: " , {'label_attr': {'class': 'col-12 col-sm-2'}})}} {{ form_widget(form.releaseDate,
+        { 'attr': {'class': 'col-12 col-sm-8 m-auto'} })}} {{ form_errors(form.releaseDate) }}
+    </div>
+
+    {{ form_errors(form) }}
+
+    <div class="col-12 d-flex justify-content-center">
+        {{ form_widget(form.valider, { 'attr': {'class': 'btn btn-success mb-4'} })}}
+    </div>
+    
+    {{form_end(form)}}
+
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "LibraryManagerBundle:Members:layout.html.twig" %} 
+{% block stylesheets %}
+{{ parent() }}
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+
+{% block members_body  %}
+
+<h2 class="mt-4 mb-4">Liste des membres</h2>
+
+
+<table id="table_id" class="display table table-hover table-responsive-sm">
+  <thead class="text-center">
+    <th>Nom</th>
+    <th>Identifiant</th>
+    <th>Nombre de livre en cours</th>
+    
+
+  </thead>
+  <tbody class="text-center ">
+    {% for member in members %}
+    
+    <tr>
+        
+      <td><a href="{{ path('library_thisMember', {'id': member.id})}}">{{member.name}} <i class="fa fa-hand-o-left ml-3" aria-hidden="true"></i></a></td>
+      <td>{{member.numberMember}}</td>
+      <td>{{member.books|length}}</td>
+      
+   
+    </tr>
+  
+    
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+{% endblock %}

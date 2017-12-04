@@ -1,0 +1,25 @@
+#body{
+    min-height: 100vh;
+    background-image: url('../img/1375.jpg');
+    background-size: cover;
+}
+
+#body main a:hover {
+    text-decoration: none;
+}
+
+#body main a {
+    color : black;
+}
+
+#body main li {
+   list-style: none;
+}
+
+#table_id {
+    background-color: white;
+}
+
+.booktitle {
+    min-width : 200Px;
+}
