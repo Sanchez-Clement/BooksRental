@@ -74,6 +74,9 @@ class Book
      * @Assert\Regex(
      *     pattern="/^\d{4}$/ ",
      *     message="La date doit être de type ****"
+     * ) * @Assert\Range(
+     *      max = 2017,   
+     *      maxMessage = "Le livre ne peut pas être sorti après {{ limit }}"
      * )
      */
     private $releaseDate;

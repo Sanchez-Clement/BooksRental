@@ -3,6 +3,3 @@ library_manager:
     type:     annotation
     prefix:   /
 
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
