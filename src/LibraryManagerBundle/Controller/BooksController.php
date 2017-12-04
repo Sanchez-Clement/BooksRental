@@ -78,6 +78,9 @@ class BooksController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $book = $em -> getRepository(Book::class)->find($id);
+        if (null === $book) {
+            throw new NotFoundHttpException("Le livre d'id ".$id." n'existe pas.");
+          }
         return $this->render('LibraryManagerBundle:Books:viewBook.html.twig', compact('book'));
     }
 

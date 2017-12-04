@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use LibraryManagerBundle\Entity\Book;
 use LibraryManagerBundle\Entity\Member;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MembersController extends Controller
 {
@@ -35,6 +36,10 @@ class MembersController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $member = $em -> getRepository(Member::class)->find($id);
+        // if the id doesn't exist 
+        if (null === $member) {
+            throw new NotFoundHttpException("Le membre d'id ".$id." n'existe pas.");
+          }
         return $this->render('LibraryManagerBundle:Members:viewThisMember.html.twig', compact('member'));
     }
 }
